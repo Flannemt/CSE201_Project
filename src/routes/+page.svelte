@@ -1,7 +1,8 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	// This script is executed on the server and the client
+	console.log('Hello, someone opened the main page');
+
+	let counter = 0;
 </script>
 
 <svelte:head>
@@ -9,27 +10,27 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+<main>
+	<h1>This is a super complex page</h1>
+	<p>It's so complex that it doesn't even have a button</p>
 
-		to your new<br />SvelteKit app
-	</h1>
+	<!-- Simply adding 1 to the counter automatically updates the page -->
+	<button on:click={() => (counter += 1)}>I lied</button>
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
+	<!-- Simple if statement for displaying different data -->
+	{#if counter > 0}
+		<p>You clicked {counter} times</p>
+	{:else if counter === 0}
+		<p>You haven't clicked the button yet, what's wrong with you</p>
+	{/if}
 
-	<Counter />
-</section>
+	<!-- Api info -->
+	<p>Test out how server requests work by going to src/routes/api/demo/+server.ts</p>
+	<a href="/api/demo">Go to the API demo</a>
+</main>
 
 <style>
-	section {
+	main {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -39,21 +40,5 @@
 
 	h1 {
 		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
 	}
 </style>

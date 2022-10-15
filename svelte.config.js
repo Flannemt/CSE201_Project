@@ -8,7 +8,11 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			$comp: './src/lib/components',
+			$db: './src/lib/database'
+		}
 	}
 };
 
