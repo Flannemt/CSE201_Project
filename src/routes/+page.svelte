@@ -1,7 +1,6 @@
 <script>
 	// This script is executed on the server and the client
 	console.log('Hello, someone opened the main page');
-
 </script>
 
 <svelte:head>
@@ -13,11 +12,9 @@
 	<h1>Welcome to MessageBox!</h1>
 	<p>Make sure to sign in before you view chats!</p>
 
-	<a href='/threads'> View Chats! </a>
-
+	<a href="/threads"> View Chats! </a>
 
 	<p>You haven't clicked the link yet, what's wrong with you??</p>
-
 </main>
 
 <style>

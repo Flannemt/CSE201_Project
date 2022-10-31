@@ -40,7 +40,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	};
 
 	if (response.error) {
-		console.log("maybe?");
+		console.log('maybe?');
 		console.log(response);
 		throw error(400, new Error('Discord Authentication Error'));
 	}
