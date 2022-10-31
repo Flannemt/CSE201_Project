@@ -1,0 +1,8 @@
+{
+	"recommendations": [
+		"usernamehw.errorlens",
+		"esbenp.prettier-vscode",
+		"svelte.svelte-vscode",
+		"dbaeumer.vscode-eslint"
+	]
+}
