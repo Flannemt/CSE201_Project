@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import preprocess from 'svelte-preprocess';
+import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,7 +12,12 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$comp: './src/lib/components',
-			$db: './src/lib/database'
+			$db: './src/database',
+			$lib: './src/lib'
+		},
+		env: {
+			dir: path.resolve('./'),
+			publicPrefix: 'PUBLIC_'
 		}
 	}
 };

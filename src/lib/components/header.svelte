@@ -1,14 +1,18 @@
 <script>
 	import { navigating } from '$app/stores';
 
-	const currentlyNavigating = $navigating !== null ? true : false;
+	const loading = $navigating !== null ? true : false;
+
+	export let loggedIn = false;
 </script>
 
 <nav>
 	<a href="/" class="logo">SvelteKit</a>
 	<ul>
-		<li><a href="/" disabled={currentlyNavigating}>Home</a></li>
-		<li><a href="/about" disabled={currentlyNavigating}>About</a></li>
+		<li><a href="/" disabled={loading}>Home</a></li>
+		<li><a href="/about" disabled={loading}>About</a></li>
+		<li><a href="/login" disabled={loading} hidden={loggedIn}>Login</a></li>
+		<li><a href="/logout" disabled={loading} hidden={!loggedIn}>Logout</a></li>
 	</ul>
 </nav>
 
