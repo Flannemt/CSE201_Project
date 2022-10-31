@@ -2,31 +2,22 @@
 	// This script is executed on the server and the client
 	console.log('Hello, someone opened the main page');
 
-	let counter = 0;
 </script>
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="MessageBox" />
 </svelte:head>
 
 <main>
-	<h1>This is a super complex page</h1>
-	<p>It's so complex that it doesn't even have a button</p>
+	<h1>Welcome to MessageBox!</h1>
+	<p>Make sure to sign in before you view chats!</p>
 
-	<!-- Simply adding 1 to the counter automatically updates the page -->
-	<button on:click={() => (counter += 1)}>I lied</button>
+	<a href='/threads'> View Chats! </a>
 
-	<!-- Simple if statement for displaying different data -->
-	{#if counter > 0}
-		<p>You clicked {counter} times</p>
-	{:else if counter === 0}
-		<p>You haven't clicked the button yet, what's wrong with you</p>
-	{/if}
 
-	<!-- Api info -->
-	<p>Test out how server requests work by going to src/routes/api/demo/+server.ts</p>
-	<a href="/api/demo">Go to the API demo</a>
+	<p>You haven't clicked the link yet, what's wrong with you??</p>
+
 </main>
 
 <style>

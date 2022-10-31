@@ -1,5 +1,5 @@
 <footer>
-	<p>This is a basic footer</p>
+	<p>Brought to you by Kazamama, 2022</p>
 </footer>
 
 <style>

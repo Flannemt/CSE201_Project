@@ -7,7 +7,7 @@
 </script>
 
 <nav>
-	<a href="/" class="logo">SvelteKit</a>
+	<a href="/" class="logo">Powered by SvelteKit</a>
 	<ul>
 		<li><a href="/" disabled={loading}>Home</a></li>
 		<li><a href="/about" disabled={loading}>About</a></li>
