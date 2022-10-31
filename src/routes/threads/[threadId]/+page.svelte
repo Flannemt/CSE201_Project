@@ -24,6 +24,16 @@
 	{/if}
 </section>
 
+<section>
+	<form method="POST" action="?/invite">
+		<input name="content" type="text" placeholder="User ID" />
+		<button>Invite</button>
+	</form>
+	{#if action?.success}
+		<p>Success!</p>
+	{/if}
+</section>
+
 <style>
 	.message {
 		display: flex;

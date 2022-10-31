@@ -1,4 +1,4 @@
-import { GetThread, SendMessage } from '$db/database';
+import { GetThread, GetUser, SendMessage } from '$db/database';
 import { error } from '@sveltejs/kit';
 
 import type { Actions, PageServerLoad } from './$types';
@@ -47,5 +47,37 @@ export const actions: Actions = {
 		const success = SendMessage(locals.user.id, params.threadId, content);
 
 		return { success };
+	},
+	invite: async ({ locals, request, params }) => {
+		if (!locals.user) {
+			throw error(401, 'Unauthorized');
+		}
+
+		const data = await request.formData();
+		const userId = data.get('content')?.toString();
+
+		if (!userId) {
+			return {
+				success: false
+			};
+		}
+
+		const thread = GetThread(params.threadId);
+		const user = GetUser(userId);
+
+		if (!thread || !user) {
+			return {
+				success: false
+			};
+		}
+
+		thread.users.push({
+			id: userId,
+			lastRead: null
+		});
+
+		user.threads.push(params.threadId);
+
+		return { success: true };
 	}
 };
