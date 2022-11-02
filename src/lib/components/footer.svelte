@@ -10,6 +10,9 @@
 		height: 4em;
 		background: #ff3e00;
 		color: #fff;
-		margin-top: 30vh;
+
+		position: absolute;
+		width: 100%;
+		bottom: 0;
 	}
 </style>
