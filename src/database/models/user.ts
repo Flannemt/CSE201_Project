@@ -6,6 +6,7 @@ import type {
 	Optional,
 	WhereAttributeHash,
 } from 'sequelize';
+import { Thread } from './thread';
 
 export type Snowflake = string;
 
@@ -15,7 +16,7 @@ export interface DiscordUser {
 	discriminator: string;
 	avatar: string;
 	avatar_decoration?: string | null;
-	email: string;
+	email?: string;
 	verified: boolean;
 	mfa_enabled: boolean;
 	locale: string;
@@ -27,20 +28,16 @@ export interface DiscordUser {
 	banner_color?: string | null;
 	accent_color?: string | null;
 }
+
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 	// Default
-	// "| string" added to allow for the string substitution to work around SvelteKit's inability to serialize date objects.
-	declare createdAt: CreationOptional<Date | string>;
-	declare updatedAt: CreationOptional<Date | string>;
+	declare createdAt: CreationOptional<Date>;
+	declare updatedAt: CreationOptional<Date>;
 
 	// Added
 	declare uuid: string;
 	declare ign: CreationOptional<string | null>;
-
-	declare skyblock: CreationOptional<Profiles | null>;
-	declare account: CreationOptional<AccountInfo | null>;
-	declare player: CreationOptional<PlayerInfo | null>;
-	declare info: CreationOptional<UserInfo | null>;
+	declare threads: CreationOptional<Snowflake[] | null>;
 
 	// Discord
 	declare id: CreationOptional<string | null>;
@@ -58,13 +55,9 @@ export function UsersInit(sequelize: Sequelize) {
 			},
 			id: DataTypes.STRING,
 			ign: DataTypes.STRING,
+			
 			user: DataTypes.JSONB,
-
-			skyblock: DataTypes.JSONB,
-			account: DataTypes.JSONB,
-			info: DataTypes.JSONB,
-			// JSON because it won't be queried by subfields
-			player: DataTypes.JSON,
+			threads: DataTypes.ARRAY(DataTypes.STRING),
 
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE,
@@ -75,6 +68,12 @@ export function UsersInit(sequelize: Sequelize) {
 			freezeTableName: true,
 		}
 	);
+	
+	User.hasMany(Thread, {
+		foreignKey: 'author',
+		sourceKey: 'uuid',
+	});
+
 	return User;
 }
 
