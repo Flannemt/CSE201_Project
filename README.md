@@ -41,7 +41,7 @@ A simple web chat application that integrates Discord Oauth and uses the SvelteK
 5. Run the website in dev mode with the following:
 
    ```
-   npm run start
+   npm run dev
    ```
 
    Navigate to the link send in the terminal, and it (should) load!
