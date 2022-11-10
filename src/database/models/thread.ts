@@ -1,5 +1,14 @@
-import { DataTypes, Model, Sequelize, type CreationOptional, type InferAttributes, type InferCreationAttributes, type Optional, type WhereAttributeHash } from 'sequelize';
-import { Message } from './message';
+import {
+	DataTypes,
+	Model,
+	Sequelize,
+	type CreationOptional,
+	type InferAttributes,
+	type InferCreationAttributes,
+	type Optional,
+	type WhereAttributeHash
+} from 'sequelize';
+import type { Message } from './message';
 import type { Snowflake } from './user';
 
 export interface ThreadMember {
@@ -16,7 +25,7 @@ export class Thread extends Model<InferAttributes<Thread>, InferCreationAttribut
 	declare uuid: Snowflake;
 	declare author: Snowflake;
 	declare users: CreationOptional<ThreadMember[]>;
-	declare messages: CreationOptional<Snowflake[]>;
+	declare messages: CreationOptional<Message[]>;
 }
 
 export function ThreadsInit(sequelize: Sequelize) {
@@ -26,35 +35,30 @@ export function ThreadsInit(sequelize: Sequelize) {
 				type: DataTypes.STRING,
 				unique: true,
 				primaryKey: true,
-				allowNull: false,
+				allowNull: false
 			},
 
 			author: DataTypes.STRING,
 
-			users: { 
+			users: {
 				type: DataTypes.ARRAY(DataTypes.JSONB),
 				defaultValue: []
 			},
 
 			messages: {
-				type: DataTypes.ARRAY(DataTypes.STRING),
+				type: DataTypes.ARRAY(DataTypes.JSONB),
 				defaultValue: []
 			},
 
 			createdAt: DataTypes.DATE,
-			updatedAt: DataTypes.DATE,
+			updatedAt: DataTypes.DATE
 		},
 		{
 			sequelize: sequelize,
 			tableName: 'threads',
-			freezeTableName: true,
+			freezeTableName: true
 		}
 	);
-
-	Thread.hasMany(Message, {
-		foreignKey: 'thread',
-		sourceKey: 'uuid',
-	});
 
 	return Thread;
 }

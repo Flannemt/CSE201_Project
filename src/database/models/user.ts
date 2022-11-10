@@ -4,7 +4,7 @@ import type {
 	InferAttributes,
 	InferCreationAttributes,
 	Optional,
-	WhereAttributeHash,
+	WhereAttributeHash
 } from 'sequelize';
 import { Thread } from './thread';
 
@@ -47,26 +47,25 @@ export function UsersInit(sequelize: Sequelize) {
 				type: DataTypes.STRING,
 				unique: true,
 				primaryKey: true,
-				allowNull: false,
+				allowNull: false
 			},
-			
+
 			user: DataTypes.JSONB,
-			threads: DataTypes.ARRAY(DataTypes.STRING),
+
+			threads: {
+				type: DataTypes.ARRAY(DataTypes.STRING),
+				defaultValue: []
+			},
 
 			createdAt: DataTypes.DATE,
-			updatedAt: DataTypes.DATE,
+			updatedAt: DataTypes.DATE
 		},
 		{
 			sequelize: sequelize,
 			tableName: 'users',
-			freezeTableName: true,
+			freezeTableName: true
 		}
 	);
-	
-	User.hasMany(Thread, {
-		foreignKey: 'author',
-		sourceKey: 'uuid',
-	});
 
 	return User;
 }
