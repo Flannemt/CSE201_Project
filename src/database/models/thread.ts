@@ -16,7 +16,7 @@ export class Thread extends Model<InferAttributes<Thread>, InferCreationAttribut
 	declare uuid: Snowflake;
 	declare author: Snowflake;
 	declare users: CreationOptional<ThreadMember[]>;
-	declare messages: CreationOptional<Message[]>;
+	declare messages: CreationOptional<Snowflake[]>;
 }
 
 export function ThreadsInit(sequelize: Sequelize) {
@@ -32,12 +32,12 @@ export function ThreadsInit(sequelize: Sequelize) {
 			author: DataTypes.STRING,
 
 			users: { 
-				type: DataTypes.JSONB,
+				type: DataTypes.ARRAY(DataTypes.JSONB),
 				defaultValue: []
 			},
 
 			messages: {
-				type: DataTypes.JSONB,
+				type: DataTypes.ARRAY(DataTypes.STRING),
 				defaultValue: []
 			},
 
