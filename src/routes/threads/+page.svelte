@@ -8,9 +8,9 @@
 </script>
 
 <section>
-	{#each threads as thread}
+	{#each threads ?? [] as thread (thread)}
 		<div class="thread">
-			<a href="/threads/{thread?.id}">{thread?.id}</a>
+			<a href="/threads/{thread}">{thread}</a>
 		</div>
 	{/each}
 </section>
@@ -22,6 +22,6 @@
 	</form>
 	{#if action?.success}
 		<p>Success! Created new thread here</p>
-		<a href="/threads/{action.thread.id}">Link to new thread</a>
+		<a href="/threads/{action.thread?.uuid}">Link to new thread</a>
 	{/if}
 </section>

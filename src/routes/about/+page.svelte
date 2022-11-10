@@ -11,10 +11,10 @@
 	</p>
 
 	<p>
-		Kazamama has developed this web app to try our hand at creating a small, local messaging service. None of us, aside from Kameron, have previously developed with SvelteKit - so this is and has been a very interesting experience while we learn new technologies.  
+		Kazamama has developed this web app to try our hand at creating a small, local messaging
+		service. None of us, aside from Kameron, have previously developed with SvelteKit - so this is
+		and has been a very interesting experience while we learn new technologies.
 	</p>
 
-	<p>
-		We hope you enjoy our efforts!
-	</p>
+	<p>We hope you enjoy our efforts!</p>
 </div>

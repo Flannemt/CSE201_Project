@@ -1,9 +1,8 @@
 import type { Snowflake } from './user';
 
 export interface Message {
-	id: Snowflake;
+	uuid: Snowflake;
 	author: Snowflake;
-	thread: Snowflake;
 	content: string;
 	timestamp: number;
 }

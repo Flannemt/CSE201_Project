@@ -1,7 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
 import { PUBLIC_DISCORD_URL as DISCORD_API_URL, PUBLIC_HOST_URL } from '$env/static/public';
 import { RefreshUser, type DiscordUser } from '$lib/discord';
-import { CreateUser, GetUser } from '$db/database';
+import { CreateUser, DBReady, GetUserData, SyncTables } from '$db/database';
 
 interface CookieData {
 	name: string;
@@ -10,6 +10,10 @@ interface CookieData {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
+	if (!DBReady) {
+		void SyncTables();
+	}
+
 	const access = event.cookies.get('access_token');
 	const refresh = event.cookies.get('refresh_token');
 
@@ -80,10 +84,10 @@ async function fetchUser(token: string): Promise<{ session: App.Session; cookies
 	const response = (await request.json()) as DiscordUser;
 
 	if (response.id) {
-		const user = GetUser(response.id) ?? CreateUser(response.id);
+		const user = (await GetUserData(response.id)) ?? (await CreateUser(response)) ?? false;
 		return {
 			session: {
-				user: user.toJSON()
+				user: user
 			}
 		};
 	} else {
@@ -117,7 +121,9 @@ async function refreshUser(
 	};
 
 	try {
-		const discordResponse = await RefreshUser(token, PUBLIC_HOST_URL + '/login/callback');
+		const uri = PUBLIC_HOST_URL + '/login/callback';
+		console.log(uri);
+		const discordResponse = await RefreshUser(token, uri);
 
 		if (!discordResponse.access_token) return failure;
 
@@ -129,10 +135,10 @@ async function refreshUser(
 
 		if (!response.id) return failure;
 
-		const user = GetUser(response.id) || CreateUser(response.id);
+		const user = (await GetUserData(response.id)) ?? (await CreateUser(response)) ?? false;
 
 		return {
-			session: { user: user.toJSON() },
+			session: { user: user },
 			cookies: [
 				{
 					name: 'access_token',

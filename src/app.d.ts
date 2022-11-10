@@ -5,10 +5,10 @@ declare namespace App {
 	interface Locals {
 		access_token?: string;
 		refresh_token?: string;
-		user?: import('$db/models/users').User | false;
+		user?: import('$db/models/user').UserData | false;
 	}
 
 	interface Session {
-		user: import('$db/models/users').User | false;
+		user: import('$db/models/user').UserData | false;
 	}
 }

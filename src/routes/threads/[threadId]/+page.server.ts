@@ -1,4 +1,4 @@
-import { GetThread, GetUser, SendMessage } from '$db/database';
+import { GetThreadData, GetUserData, SendMessage } from '$db/database';
 import { error } from '@sveltejs/kit';
 
 import type { Actions, PageServerLoad } from './$types';
@@ -17,15 +17,18 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		throw error(401, 'Unauthorized');
 	}
 
-	const thread = GetThread(threadId);
+	const thread = await GetThreadData(threadId);
 
 	// Check if the user has access to this thread and if the thread exists
-	if (!thread || !thread.users.some((u) => u.id === user.id.toString())) {
+	if (!thread || !thread.users.some((u) => u.id === user.uuid)) {
 		throw error(404, 'Not found');
 	}
 
+	const members = await Promise.all(thread.users.map(async (u) => GetUserData(u.id)));
+
 	return {
-		thread: thread.toJSON()
+		thread: thread,
+		members
 	};
 };
 
@@ -44,7 +47,7 @@ export const actions: Actions = {
 			};
 		}
 
-		const success = SendMessage(locals.user.id, params.threadId, content);
+		const success = await SendMessage(locals.user.uuid, params.threadId, content);
 
 		return { success };
 	},
@@ -62,8 +65,8 @@ export const actions: Actions = {
 			};
 		}
 
-		const thread = GetThread(params.threadId);
-		const user = GetUser(userId);
+		const thread = await GetThreadData(params.threadId);
+		const user = await GetUserData(userId);
 
 		if (!thread || !user) {
 			return {
