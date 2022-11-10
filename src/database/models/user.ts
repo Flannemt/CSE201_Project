@@ -36,12 +36,8 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 
 	// Added
 	declare uuid: string;
-	declare ign: CreationOptional<string | null>;
-	declare threads: CreationOptional<Snowflake[] | null>;
-
-	// Discord
-	declare id: CreationOptional<string | null>;
-	declare user: CreationOptional<DiscordUser | null>;
+	declare user: DiscordUser;
+	declare threads: CreationOptional<Snowflake[]>;
 }
 
 export function UsersInit(sequelize: Sequelize) {
@@ -53,8 +49,6 @@ export function UsersInit(sequelize: Sequelize) {
 				primaryKey: true,
 				allowNull: false,
 			},
-			id: DataTypes.STRING,
-			ign: DataTypes.STRING,
 			
 			user: DataTypes.JSONB,
 			threads: DataTypes.ARRAY(DataTypes.STRING),
