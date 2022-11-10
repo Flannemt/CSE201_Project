@@ -1,14 +1,22 @@
 <script lang="ts">
+	import type { DiscordUser } from '$db/models/user';
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
 	export let action: ActionData;
+
+	const { thread, members } = data;
+	const memberMap = new Map<string, DiscordUser>();
+
+	for (const member of members) {
+		memberMap.set(member.uuid, member.user);
+	}
 </script>
 
 <section>
-	{#each data.thread?.messageCache ?? [] as message}
+	{#each data.thread.messages ?? [] as message (message.uuid)}
 		<div class="message">
-			<h5>{message.author}</h5>
+			<h5>{memberMap.get(message.author)?.username}</h5>
 			<p>{message.content}</p>
 		</div>
 	{/each}
