@@ -1,4 +1,4 @@
-import { PUBLIC_DISCORD_CLIENT_ID as CLIENT_ID } from '$env/static/public';
+import { PUBLIC_DISCORD_CLIENT_ID as CLIENT_ID, PUBLIC_HOST_URL } from '$env/static/public';
 import { browser } from '$app/environment';
 import { redirect } from '@sveltejs/kit';
 
@@ -11,7 +11,7 @@ export const load: PageLoad = ({ url }) => {
 			'https://discord.com/api/oauth2/authorize' +
 			`?client_id=${CLIENT_ID}` +
 			'&redirect_uri=' +
-			encodeURIComponent(url.origin + '/login/callback') +
+			encodeURIComponent(PUBLIC_HOST_URL + '/login/callback') +
 			'&response_type=code&scope=identify';
 
 		throw redirect(303, endpoint);

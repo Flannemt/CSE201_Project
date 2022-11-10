@@ -1,4 +1,4 @@
-import { PUBLIC_DISCORD_CLIENT_ID as CLIENT_ID } from '$env/static/public';
+import { PUBLIC_DISCORD_CLIENT_ID as CLIENT_ID, PUBLIC_HOST_URL } from '$env/static/public';
 import { DISCORD_CLIENT_SECRET as CLIENT_SECRET } from '$env/static/private';
 import { error, redirect } from '@sveltejs/kit';
 
@@ -15,12 +15,14 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		throw error(400, 'Missing code');
 	}
 
+	const uri = PUBLIC_HOST_URL + '/login/callback';
+
 	const data = {
 		client_id: CLIENT_ID,
 		client_secret: CLIENT_SECRET,
 		grant_type: 'authorization_code',
 		code: code,
-		redirect_uri: url.origin + '/login/callback',
+		redirect_uri: uri,
 		scope: 'identify'
 	};
 
@@ -40,7 +42,6 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	};
 
 	if (response.error) {
-		console.log('maybe?');
 		console.log(response);
 		throw error(400, new Error('Discord Authentication Error'));
 	}
