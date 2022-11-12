@@ -13,7 +13,7 @@ A simple web chat application that integrates Discord Oauth and uses the SvelteK
    ```
    POSTGRES_URI="postgres://user:postgres123@localhost:5434/chatapp"
    ```
-   
+
    If you have a postgres install running elsewhere, you may use that.
 
    b. `DISCORD_CLIENT_SECRET` and `PUBLIC_DISCORD_CLIENT_ID` are values found in https://discord.com/developers/applications. You'll have to create a new application, then go to the pictured location to copy these values.
@@ -26,9 +26,8 @@ A simple web chat application that integrates Discord Oauth and uses the SvelteK
    http://localhost:5173/login/callback
    http://localhost:8000/login/callback
    ```
-   
-   ![image](https://user-images.githubusercontent.com/94007463/201015643-cf2c4912-37f3-4de1-b47b-7f00f4b9a17d.png)
 
+   ![image](https://user-images.githubusercontent.com/94007463/201015643-cf2c4912-37f3-4de1-b47b-7f00f4b9a17d.png)
 
 4. Start up the database container (or other postgres database if you went that route). You'll need to have docker-compose installed on your system.
 
