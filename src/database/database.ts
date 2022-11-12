@@ -22,8 +22,8 @@ export async function SyncTables() {
 	try {
 		await sequelize.authenticate();
 
-		await Users.sync({ force: true });
-		await Threads.sync({ force: true });
+		await Users.sync({ force: false });
+		await Threads.sync({ force: false });
 
 		console.log('Connected to database.');
 	} catch (error) {
