@@ -16,5 +16,14 @@
 	<slot />
 
 	<!-- Insert our footer -->
-	<Footer />
+	<div class="footer">
+		<Footer />
+	</div>
 </div>
+
+<style>
+	.footer {
+		height: 5vh;
+		margin-top: auto;
+	}
+</style>

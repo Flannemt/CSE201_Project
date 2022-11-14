@@ -63,12 +63,13 @@
 		background-color: #546a7b;
 		height: 90vh;
 		color: black;
+		overflow-y: scroll;
 	}
 
 	.page {
 		display: flex;
 		flex-direction: column;
-		height: 85vh;
+		height: 90vh;
 	}
 
 	button {
