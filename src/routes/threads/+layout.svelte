@@ -46,7 +46,7 @@
 
 	a {
 		padding: 1rem;
-		background-color: #F4A261;
+		background-color: #f4a261;
 		margin: 5px;
 		widows: 100%;
 		border-radius: 10px;
@@ -54,13 +54,13 @@
 	}
 
 	a:hover {
-		background-color: #E9C46A;
+		background-color: #e9c46a;
 	}
 
 	.sidebar {
 		display: flex;
 		flex-direction: column;
-		background-color: #546A7B;
+		background-color: #546a7b;
 		height: 150vh;
 		color: black;
 	}
@@ -73,19 +73,18 @@
 	}
 
 	button {
-		border-radius:1em;
-		border-color: #0D1F2D;
-		background-color: #E76F51;
+		border-radius: 1em;
+		border-color: #0d1f2d;
+		background-color: #e76f51;
 		padding: 5px;
 		margin-left: 5px;
 	}
 
 	button:hover {
-		background-color: #F4A261;
+		background-color: #f4a261;
 	}
 
-	h3{
+	h3 {
 		margin-left: 5px;
 	}
-	
 </style>

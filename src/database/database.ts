@@ -136,6 +136,45 @@ export async function DeleteThread(id: Snowflake) {
 	return destroy;
 }
 
+export async function AddUserToThread(userId: Snowflake, threadId: Snowflake) {
+	if (!userId || !threadId) return { success: false, error: 'Invalid user or thread ID' };
+
+	const thread = await GetThread(threadId);
+	const user = await GetUser(userId);
+
+	if (!thread)
+		return {
+			success: false,
+			error: 'Thread does not exist'
+		};
+
+	if (!user)
+		return {
+			success: false,
+			error: 'User does not exist'
+		};
+
+	if (thread.users.find((member) => member.id === userId))
+		return {
+			success: false,
+			error: 'User is already in thread'
+		};
+
+	thread.users = [
+		...(thread.users ?? []),
+		{
+			id: userId,
+			lastRead: `${Date.now()}`
+		}
+	];
+	thread.save();
+
+	user.threads = [...(user.threads ?? []), threadId];
+	user.save();
+
+	return { success: true };
+}
+
 // Generate unique Snowflake IDs in Discord's format
 export function GenerateSnowflake() {
 	return ((BigInt(Date.now()) - 1420070400000n) << 22n).toString();

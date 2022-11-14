@@ -4,12 +4,12 @@
 :root {
 	--font-body: Dosis;
 	--font-mono: 'Fira Mono', monospace;
-	--color-bg-0: #2A9D8F;
-	--color-bg-1: #2A9D8F;
+	--color-bg-0: #2a9d8f;
+	--color-bg-1: #2a9d8f;
 	--color-bg-2: #264653;
-	--color-theme-1: #E76F51;
+	--color-theme-1: #e76f51;
 	--color-theme-2: #40b3ff;
-	--color-text: #9EA3B0;
+	--color-text: #9ea3b0;
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);
@@ -21,7 +21,7 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	background-attachment: fixed;
-	background-color: #0D1F2D;
+	background-color: #0d1f2d;
 	background-size: 100vw 100vh;
 }
 
@@ -56,7 +56,7 @@ h2 {
 pre {
 	font-size: 16px;
 	font-family: var(--font-mono);
-	background-color: #546A7B;
+	background-color: #546a7b;
 	border-radius: 3px;
 	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
 	padding: 0.5em;
@@ -84,9 +84,9 @@ button:focus:not(:focus-visible) {
 }
 
 button {
-	border-radius:1em;
-	border-color: #0D1F2D;
-	background-color: #E76F51;
+	border-radius: 1em;
+	border-color: #0d1f2d;
+	background-color: #e76f51;
 	padding: 5px;
 	margin-left: 5px;
 }
@@ -100,7 +100,6 @@ input {
 footer {
 	position: sticky;
 	padding: 0;
-
 }
 
 @media (min-width: 720px) {

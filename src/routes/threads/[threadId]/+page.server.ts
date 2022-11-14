@@ -1,4 +1,10 @@
-import { CreateThread, GetThreadData, GetUserData, SendMessage } from '$db/database';
+import {
+	AddUserToThread,
+	CreateThread,
+	GetThreadData,
+	GetUserData,
+	SendMessage
+} from '$db/database';
 import { error } from '@sveltejs/kit';
 
 import type { Actions, PageServerLoad } from './$types';
@@ -57,31 +63,9 @@ export const actions: Actions = {
 		}
 
 		const data = await request.formData();
-		const userId = data.get('content')?.toString();
+		const userId = data.get('content')?.toString() ?? '';
 
-		if (!userId) {
-			return {
-				success: false
-			};
-		}
-
-		const thread = await GetThreadData(params.threadId);
-		const user = await GetUserData(userId);
-
-		if (!thread || !user) {
-			return {
-				success: false
-			};
-		}
-
-		thread.users.push({
-			id: userId,
-			lastRead: null
-		});
-
-		user.threads.push(params.threadId);
-
-		return { success: true };
+		return await AddUserToThread(userId, params.threadId);
 	},
 	create: async ({ locals }) => {
 		if (!locals.user) {

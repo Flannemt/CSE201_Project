@@ -13,42 +13,60 @@
 	}
 </script>
 
-<section>
-	{#each data.thread.messages ?? [] as message (message.uuid)}
-		<div class="message">
-			<h5>{memberMap.get(message.author)?.username}</h5>
-			<p>{message.content}</p>
+<main>
+	<section class="messages">
+		<div>
+			{#each data.thread.messages ?? [] as message (message.uuid)}
+				<div class="message">
+					<h5>
+						{memberMap.get(message.author)?.username}
+						<span class="timestamp"
+							>{new Date(message.timestamp).toLocaleTimeString(undefined, {
+								timeStyle: 'short'
+							})}</span
+						>
+					</h5>
+					<p>{message.content}</p>
+				</div>
+			{/each}
 		</div>
-	{/each}
-</section>
+	</section>
 
-<section>
-	<form method="POST" action="?/message">
-		<input name="content" type="text" />
-		<button>Send</button>
-	</form>
-	{#if action?.success}
-		<p>Success!</p>
-	{/if}
-</section>
+	<section>
+		<form method="POST" action="?/message">
+			<input class="chatbox" name="content" type="text" />
+			<button>Send</button>
+		</form>
+		{#if action?.success}
+			<p>Success!</p>
+		{/if}
+	</section>
 
-<section>
-	<form method="POST" action="?/invite">
-		<input name="content" type="text" placeholder="User ID" />
-		<button>Invite</button>
-	</form>
-	{#if action?.success}
-		<p>Success!</p>
-	{/if}
-</section>
+	<section>
+		<form method="POST" action="?/invite">
+			<input name="content" type="text" placeholder="User ID" />
+			<button>Invite</button>
+		</form>
+		{#if action?.success}
+			<p>Success!</p>
+		{/if}
+	</section>
+</main>
 
 <style>
+	.messages {
+		display: flex;
+		overflow: auto;
+		flex-direction: column-reverse;
+		height: 80vh;
+	}
+
 	.message {
 		display: flex;
 		flex-direction: column;
-		border-radius: 20px;
+		border-radius: 10px;
 		margin: 4px;
-		background-color: #9EA3B0;
+		background-color: #9ea3b0;
 		color: black;
 		padding: 4px;
 		word-wrap: break-word;
@@ -65,4 +83,10 @@
 		margin: 4px;
 	}
 
+	.chatbox {
+		width: 50%;
+		padding: 0.5rem;
+		margin-top: 4px;
+		word-break: break-word;
+	}
 </style>
