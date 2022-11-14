@@ -61,15 +61,14 @@
 		display: flex;
 		flex-direction: column;
 		background-color: #546a7b;
-		height: 150vh;
+		height: 90vh;
 		color: black;
 	}
 
 	.page {
 		display: flex;
 		flex-direction: column;
-		height: max-content;
-		bottom: 0;
+		height: 85vh;
 	}
 
 	button {

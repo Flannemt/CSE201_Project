@@ -3,7 +3,6 @@
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
-	export let action: ActionData;
 
 	const { thread, members } = data;
 	const memberMap = new Map<string, DiscordUser>();
@@ -32,24 +31,15 @@
 		</div>
 	</section>
 
-	<section>
+	<section class="inputs">
 		<form method="POST" action="?/message">
 			<input class="chatbox" name="content" type="text" />
 			<button>Send</button>
 		</form>
-		{#if action?.success}
-			<p>Success!</p>
-		{/if}
-	</section>
-
-	<section>
 		<form method="POST" action="?/invite">
 			<input name="content" type="text" placeholder="User ID" />
 			<button>Invite</button>
 		</form>
-		{#if action?.success}
-			<p>Success!</p>
-		{/if}
 	</section>
 </main>
 
@@ -58,7 +48,7 @@
 		display: flex;
 		overflow: auto;
 		flex-direction: column-reverse;
-		height: 80vh;
+		height: 100%;
 	}
 
 	.message {
@@ -88,5 +78,12 @@
 		padding: 0.5rem;
 		margin-top: 4px;
 		word-break: break-word;
+	}
+
+	main {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
 	}
 </style>
