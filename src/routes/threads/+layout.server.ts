@@ -13,8 +13,10 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		throw error(401, 'Unauthorized');
 	}
 
+	const friends = await Promise.all(user.friends.map(async (f) => await GetUserData(f)));
+
 	return {
 		threads: user.threads,
-		friends: user.friends
+		friends: friends.filter((f) => f)
 	};
 };

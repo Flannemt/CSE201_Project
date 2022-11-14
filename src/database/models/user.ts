@@ -50,11 +50,11 @@ export function UsersInit(sequelize: Sequelize) {
 				allowNull: false
 			},
 
-			friends: { 
-				type: DataTypes.ARRAY(DataTypes.STRING), 
+			friends: {
+				type: DataTypes.ARRAY(DataTypes.STRING),
 				defaultValue: []
 			},
-			
+
 			user: DataTypes.JSONB,
 
 			threads: {
@@ -65,7 +65,7 @@ export function UsersInit(sequelize: Sequelize) {
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE
 		},
-			
+
 		{
 			sequelize: sequelize,
 			tableName: 'users',

@@ -28,7 +28,7 @@
 		<div class="list">
 			<!-- Change to friends -->
 			{#each data.friends as friend (friend)}
-				<h3>{friend}</h3>
+				<h4>{friend?.user.username}</h4>
 			{/each}
 		</div>
 	</aside>
@@ -54,7 +54,8 @@
 		flex-direction: column;
 	}
 
-	a {
+	a,
+	h4 {
 		padding: 1rem;
 		background-color: #f4a261;
 		margin: 5px;
