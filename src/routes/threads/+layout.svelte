@@ -46,22 +46,23 @@
 
 	a {
 		padding: 1rem;
-		background-color: gray;
+		background-color: #F4A261;
 		margin: 5px;
 		widows: 100%;
 		border-radius: 10px;
-		color: whitesmoke;
+		color: black;
 	}
 
 	a:hover {
-		background-color: darkgray;
+		background-color: #E9C46A;
 	}
 
 	.sidebar {
 		display: flex;
 		flex-direction: column;
-		background-color: azure;
-		height: 90vh;
+		background-color: #546A7B;
+		height: 150vh;
+		color: black;
 	}
 
 	.page {
@@ -72,6 +73,19 @@
 	}
 
 	button {
+		border-radius:1em;
+		border-color: #0D1F2D;
+		background-color: #E76F51;
 		padding: 5px;
+		margin-left: 5px;
 	}
+
+	button:hover {
+		background-color: #F4A261;
+	}
+
+	h3{
+		margin-left: 5px;
+	}
+	
 </style>

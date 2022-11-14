@@ -46,12 +46,23 @@
 	.message {
 		display: flex;
 		flex-direction: column;
+		border-radius: 20px;
 		margin: 4px;
-		background-color: antiquewhite;
+		background-color: #9EA3B0;
+		color: black;
 		padding: 4px;
+		word-wrap: break-word;
+		width: 60%;
 	}
 
 	.message > h5 {
-		margin: 2px;
+		margin: 4px;
+		font-size: 120%;
+		font-weight: bold;
 	}
+
+	p {
+		margin: 4px;
+	}
+
 </style>
