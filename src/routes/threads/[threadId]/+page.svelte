@@ -25,6 +25,11 @@
 							})}</span
 						>
 					</h5>
+			<!-- button for adding friends here -->
+			<form method="POST" action="?/message">
+				<input name="friendId" type="text" value={message.author} hidden/>
+				<button>Send</button>
+			</form>
 					<!-- button for adding friends here -->
 			<form method="POST" action="?/message">
 				<input name="friendId" type="text" value={message.author} hidden/>
