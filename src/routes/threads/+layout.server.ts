@@ -14,6 +14,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	}
 
 	return {
-		threads: user.threads
+		threads: user.threads,
+		friends: user.friends
 	};
 };

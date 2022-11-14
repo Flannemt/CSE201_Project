@@ -25,7 +25,12 @@
 							})}</span
 						>
 					</h5>
-					<p>{message.content}</p>
+					<!-- button for adding friends here -->
+			<form method="POST" action="?/message">
+				<input name="friendId" type="text" value={message.author} hidden/>
+				<button>Send</button>
+			</form>
+			<p>{message.content}</p>
 				</div>
 			{/each}
 		</div>

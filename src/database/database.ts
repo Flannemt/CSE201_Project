@@ -22,7 +22,7 @@ export async function SyncTables() {
 	try {
 		await sequelize.authenticate();
 
-		await Users.sync({ force: false });
+		await Users.sync({ force: true });
 		await Threads.sync({ force: false });
 
 		console.log('Connected to database.');
@@ -84,7 +84,7 @@ export async function CreateThread(userId: Snowflake) {
 			}
 		]
 	});
-
+	//!
 	if (thread) {
 		const user = await GetUser(userId);
 		if (user) {
@@ -94,6 +94,22 @@ export async function CreateThread(userId: Snowflake) {
 	}
 
 	return await GetThreadData(thread.uuid);
+}
+
+export async function AddFriend(userId: Snowflake, friendId: Snowflake) {
+	if (!userId || !friendId) return null;
+	//!
+	const user = await GetUser(userId);
+	const friend = await GetUser(friendId);
+	if (!friend) return null;
+	if (user) {
+		user.friends = [...(user.friends ?? []), friendId];
+		//change to user.friends [...] user.uuid
+		//different way of adding to an array
+		user.save();
+	}
+
+	return true;
 }
 
 export async function SendMessage(userId: Snowflake, threadId: Snowflake, content: string) {
