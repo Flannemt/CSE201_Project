@@ -6,7 +6,6 @@ import type {
 	Optional,
 	WhereAttributeHash
 } from 'sequelize';
-import { Thread } from './thread';
 
 export type Snowflake = string;
 
@@ -36,6 +35,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 
 	// Added
 	declare uuid: string;
+	declare friends: CreationOptional<Snowflake[]>;
 	declare user: DiscordUser;
 	declare threads: CreationOptional<Snowflake[]>;
 }
@@ -50,6 +50,11 @@ export function UsersInit(sequelize: Sequelize) {
 				allowNull: false
 			},
 
+			friends: { 
+				type: DataTypes.ARRAY(DataTypes.STRING), 
+				defaultValue: []
+			},
+			
 			user: DataTypes.JSONB,
 
 			threads: {
@@ -60,6 +65,7 @@ export function UsersInit(sequelize: Sequelize) {
 			createdAt: DataTypes.DATE,
 			updatedAt: DataTypes.DATE
 		},
+			
 		{
 			sequelize: sequelize,
 			tableName: 'users',

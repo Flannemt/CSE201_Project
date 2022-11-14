@@ -17,6 +17,11 @@
 	{#each data.thread.messages ?? [] as message (message.uuid)}
 		<div class="message">
 			<h5>{memberMap.get(message.author)?.username}</h5>
+			<!-- button for adding friends here -->
+			<form method="POST" action="?/message">
+				<input name="friendId" type="text" value={message.author} hidden/>
+				<button>Send</button>
+			</form>
 			<p>{message.content}</p>
 		</div>
 	{/each}

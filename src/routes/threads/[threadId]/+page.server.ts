@@ -1,4 +1,4 @@
-import { CreateThread, GetThreadData, GetUserData, SendMessage } from '$db/database';
+import { AddFriend, CreateThread, GetThreadData, GetUserData, SendMessage } from '$db/database';
 import { error } from '@sveltejs/kit';
 
 import type { Actions, PageServerLoad } from './$types';
@@ -94,5 +94,19 @@ export const actions: Actions = {
 		const thread = await CreateThread(locals.user.uuid);
 
 		return { success: true, thread: thread };
+	},
+	//friend action
+	friend: async ({ locals, request }) => {
+		if (!locals.user) {
+			throw error(401, 'Unauthorized');
+		}
+
+		const data = await request.formData();
+		const friendId = data.get('friendId')?.toString() ?? "";
+
+		const friend = await AddFriend(locals.user.uuid, friendId);
+
+		return { success: friend};
 	}
+	//friend action here
 };
