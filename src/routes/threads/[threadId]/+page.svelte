@@ -1,23 +1,54 @@
 <script lang="ts">
 	import type { DiscordUser } from '$db/models/user';
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
+	import { page } from '$app/stores';
+	import { onDestroy, onMount } from 'svelte';
 
 	export let data: PageData;
 
-	const { thread, members } = data;
+	const { members } = data;
 	const memberMap = new Map<string, DiscordUser>();
-
-	console.log(data.thread.messages);
 
 	for (const member of members) {
 		memberMap.set(member.uuid, member.user);
+	}
+
+	let url = '';
+	let intervalId: any;
+
+	onMount(async () => {
+		url = $page.url.pathname;
+		intervalId = setInterval(fetchMessages, 1000);
+	});
+
+	onDestroy(() => {
+		clearInterval(intervalId);
+	});
+
+	$: messages = data.thread.messages;
+
+	async function fetchMessages() {
+		let count = messages.length; //setting again to update every fetch
+
+		const request = await fetch(window.location.origin + url + '/message/?count=' + count);
+		const message = await request.json();
+
+		if (!message || count === message.count) {
+			return; // No new messages
+		}
+
+		if (message?.updates) {
+			messages = [...messages, ...(message.updates ?? [])];
+		}
+
+		count = message.count;
 	}
 </script>
 
 <main>
 	<section class="messages">
 		<div>
-			{#each data.thread.messages ?? [] as message (message.uuid)}
+			{#each messages ?? [] as message (message.uuid)}
 				<div class="message">
 					<h5>
 						{memberMap.get(message.author)?.username}
@@ -40,7 +71,7 @@
 
 	<section class="inputs">
 		<form method="POST" action="?/message">
-			<input class="chatbox" name="content" type="text" />
+			<input class="chatbox" name="content" type="text" value="" id="messageText" />
 			<button>Send</button>
 		</form>
 		<form method="POST" action="?/invite">
