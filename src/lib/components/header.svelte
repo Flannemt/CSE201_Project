@@ -11,6 +11,7 @@
 	<ul>
 		<li><a href="/" disabled={loading}>Home</a></li>
 		<li><a href="/about" disabled={loading}>About</a></li>
+		<li><a href="/threads" disabled={loading} hidden={!loggedIn}>Threads</a></li>
 		<li><a href="/login" disabled={loading} hidden={loggedIn}>Login</a></li>
 		<li><a href="/logout" disabled={loading} hidden={!loggedIn}>Logout</a></li>
 	</ul>

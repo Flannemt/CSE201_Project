@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
@@ -9,7 +10,9 @@
 		<h3>Threads</h3>
 		<div class="list">
 			{#each data.threads as thread (thread)}
-				<a href="/threads/{thread}">{thread}</a>
+				<a href="/threads/{thread}" class={$page.url.href.includes(thread) ? 'selected' : ''}
+					>{thread}</a
+				>
 			{/each}
 		</div>
 		<div>
@@ -61,6 +64,10 @@
 		widows: 100%;
 		border-radius: 10px;
 		color: black;
+	}
+
+	.selected {
+		background-color: #ed842e;
 	}
 
 	a:hover {

@@ -101,7 +101,6 @@
 		color: black;
 		padding: 4px;
 		word-wrap: break-word;
-		width: 60%;
 	}
 
 	.top > h5 {
@@ -124,8 +123,14 @@
 		margin: 4px;
 	}
 
+	.inputs > form {
+		display: flex;
+		align-items: center;
+		justify-items: center;
+	}
+
 	.chatbox {
-		width: 50%;
+		width: 100%;
 		padding: 0.5rem;
 		margin-top: 4px;
 		word-break: break-word;

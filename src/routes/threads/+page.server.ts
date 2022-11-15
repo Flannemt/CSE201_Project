@@ -24,9 +24,6 @@ export const actions: Actions = {
 			throw error(401, 'Unauthorized');
 		}
 
-		// const data = await request.formData();
-		// const name = data.get('name');
-
 		const thread = await CreateThread(locals.user.uuid);
 
 		return { success: true, thread: thread };
