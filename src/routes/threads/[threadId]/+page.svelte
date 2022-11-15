@@ -2,7 +2,7 @@
 	import type { DiscordUser } from '$db/models/user';
 	import type { ActionData, PageData } from './$types';
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	export let data: PageData;
 
@@ -14,57 +14,35 @@
 	}
 
 	let url = '';
-
-	//var count = data.thread.messages.length; //counter var
-
-	onMount(() => url = $page.url.pathname);
+	let intervalId: NodeJS.Timer;
 
 	onMount(async () => {
-	setInterval(fetchMessages, 1000);
+		url = $page.url.pathname;
+		intervalId = setInterval(fetchMessages, 1000);
+	});
+
+	onDestroy(() => {
+		clearInterval(intervalId);
 	});
 
 	$: messages = data.thread.messages;
 
 	async function fetchMessages() {
 		let count = messages.length; //setting again to update every fetch
-		let message = null;
+
 		const request = await fetch(window.location.origin + url + '/message/?count=' + count);
-		message = await request.json();
+		const message = await request.json();
 
-		console.log(message.message);
-		console.log(count);
-		
-		if(count != message.count) {
-			//messages = [...messages, ...message.updates];
-			//messages.push(message.updates);
+		if (!message || count === message.count) {
+			return; // No new messages
+		}
 
-			if(count != message.count && message != undefined) {
-				messages = [...messages, ...(message.updates ?? [])];
-			//messages.push(message.updates);
-			
-				message.message = 'All good'; //resets messages pkt
-				count = message.count;
-			/*
-			let text = document.querySelector("#messageText")
-			if(text.value == '') {
-				let cancel;
-				text.value = localStorage.getItem("val")
+		if (message?.updates) {
+			messages = [...messages, ...(message.updates ?? [])];
+		}
 
-
-				text.addEventListener("keyup", event => {
-				if (cancel) clearTimeout(cancel)
-					cancel = setTimeout(() => {
-					localStorage.setItem("val", event.target.value)
-				}, 1000)		
-})
-*/
+		count = message.count;
 	}
-			//location.reload(); 
-			//count = message.count; //sets count to what the server has
-			//message = null; //resets messages pkt
-}
-}
-
 </script>
 
 <main>
@@ -93,7 +71,7 @@
 
 	<section class="inputs">
 		<form method="POST" action="?/message">
-			<input class="chatbox" name="content" type="text" value="" id='messageText'/> 
+			<input class="chatbox" name="content" type="text" value="" id="messageText" />
 			<button>Send</button>
 		</form>
 		<form method="POST" action="?/invite">
