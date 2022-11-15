@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DiscordUser } from '$db/models/user';
+	import type { DiscordUser, User } from '$db/models/user';
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
 	import { onDestroy, onMount } from 'svelte';
@@ -50,19 +50,22 @@
 		<div>
 			{#each messages ?? [] as message (message.uuid)}
 				<div class="message">
-					<h5>
-						{memberMap.get(message.author)?.username}
-						<span class="timestamp"
-							>{new Date(message.timestamp).toLocaleTimeString(undefined, {
-								timeStyle: 'short'
-							})}</span
-						>
-					</h5>
-					<!-- button for adding friends here -->
-					<form method="POST" action="?/friend">
-						<input name="friendId" type="text" value={message.author} hidden />
-						<button>Send</button>
-					</form>
+					<div class="top">
+						<h5>
+							{memberMap.get(message.author)?.username}
+							<span class="timestamp"
+								>{new Date(message.timestamp).toLocaleTimeString(undefined, {
+									timeStyle: 'short'
+								})}</span
+							>
+						</h5>
+						{#if message.author !== data.userId && !data.friends?.includes(message.author)}
+							<form method="POST" action="?/friend">
+								<input name="friendId" type="text" value={message.author} hidden />
+								<button>Add Friend</button>
+							</form>
+						{/if}
+					</div>
 					<p>{message.content}</p>
 				</div>
 			{/each}
@@ -101,10 +104,20 @@
 		width: 60%;
 	}
 
-	.message > h5 {
+	.top > h5 {
 		margin: 4px;
 		font-size: 120%;
 		font-weight: bold;
+	}
+
+	.top {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.top > form > button {
+		border-radius: 5px !important;
+		background-color: lightgray;
 	}
 
 	p {

@@ -38,7 +38,6 @@
 	.panel {
 		display: flex;
 		flex-direction: row;
-		gap: 1vw;
 	}
 
 	.panel > aside {
@@ -81,6 +80,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 90vh;
+		padding: 0 1vw;
 	}
 
 	button {

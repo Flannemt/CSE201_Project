@@ -35,7 +35,9 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	return {
 		thread: thread,
-		members
+		members,
+		friends: user.friends,
+		userId: user.uuid
 	};
 };
 
@@ -90,9 +92,6 @@ export const actions: Actions = {
 		const friendId = data.get('friendId')?.toString() ?? '';
 
 		const friend = await AddFriend(locals.user.uuid, friendId);
-
-		console.log(friend);
-		console.log((await GetUserData(locals.user.uuid))?.friends);
 
 		return { success: friend };
 	}
