@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { DiscordUser } from '$db/models/user';
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import { page } from '$app/stores';
 	import { onDestroy, onMount } from 'svelte';
 
 	export let data: PageData;
 
-	const { thread, members } = data;
+	const { members } = data;
 	const memberMap = new Map<string, DiscordUser>();
 
 	for (const member of members) {
@@ -14,7 +14,7 @@
 	}
 
 	let url = '';
-	let intervalId: NodeJS.Timer;
+	let intervalId: any;
 
 	onMount(async () => {
 		url = $page.url.pathname;
