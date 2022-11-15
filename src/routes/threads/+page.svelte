@@ -4,6 +4,10 @@
 	export let data: LayoutData;
 </script>
 
+<svelte:head>
+	<title>Threads</title>
+</svelte:head>
+
 <section>
 	<h1>Select a thread!</h1>
 

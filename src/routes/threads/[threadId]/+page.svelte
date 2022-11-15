@@ -45,6 +45,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Opened Thread</title>
+</svelte:head>
+
 <main>
 	<section class="messages">
 		<div>

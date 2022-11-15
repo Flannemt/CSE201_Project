@@ -1,8 +1,3 @@
-<script>
-	// This script is executed on the server and the client
-	console.log('Hello, someone opened the main page');
-</script>
-
 <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="MessageBox" />
