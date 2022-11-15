@@ -9,8 +9,6 @@
 	const { thread, members } = data;
 	const memberMap = new Map<string, DiscordUser>();
 
-	console.log(data.thread.messages);
-
 	for (const member of members) {
 		memberMap.set(member.uuid, member.user);
 	}
