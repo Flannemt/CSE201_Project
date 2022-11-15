@@ -22,17 +22,27 @@
 	<div class="page">
 		<slot />
 	</div>
+	<!-- another div here for friends sidebar -->
+	<aside class="sidebar">
+		<h3>Friends</h3>
+		<div class="list">
+			<!-- Change to friends -->
+			{#each data.friends as friend (friend)}
+				<h4>{friend?.user.username}</h4>
+			{/each}
+		</div>
+	</aside>
 </div>
 
 <style>
 	.panel {
 		display: flex;
 		flex-direction: row;
+		gap: 1vw;
 	}
 
 	.panel > aside {
 		width: 20vw;
-		margin-right: 1vw;
 	}
 
 	.panel > div {
@@ -44,7 +54,8 @@
 		flex-direction: column;
 	}
 
-	a {
+	a,
+	h4 {
 		padding: 1rem;
 		background-color: #f4a261;
 		margin: 5px;

@@ -84,7 +84,7 @@ export async function CreateThread(userId: Snowflake) {
 			}
 		]
 	});
-
+	//!
 	if (thread) {
 		const user = await GetUser(userId);
 		if (user) {
@@ -94,6 +94,21 @@ export async function CreateThread(userId: Snowflake) {
 	}
 
 	return await GetThreadData(thread.uuid);
+}
+
+export async function AddFriend(userId: Snowflake, friendId: Snowflake) {
+	if (!userId || !friendId || userId === friendId) return null;
+
+	const user = await GetUser(userId);
+	if (!user || user.friends.includes(friendId)) return null;
+
+	const friend = await GetUser(friendId);
+	if (!friend) return null;
+
+	user.friends = [...(user.friends ?? []), friendId];
+	user.save();
+
+	return true;
 }
 
 export async function SendMessage(userId: Snowflake, threadId: Snowflake, content: string) {
