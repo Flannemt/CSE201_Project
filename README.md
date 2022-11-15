@@ -53,7 +53,7 @@ To create a production version of your app, follow these steps.
 
 1. Follow steps `1-4` of the above development steps, you should then have a `.env.production` file to edit.
 
-2. To use the included postgres database, edit the databse URI as shown:
+2. To use the included postgres database, edit the databse URI in `.env.production` as shown:
 
    ```
    POSTGRES_URI="postgres://user:postgres123@database:5432/chatapp"
@@ -74,7 +74,7 @@ To create a production version of your app, follow these steps.
 
    ```
    ports:
-   	- '5434:5432'
+     - '5434:5432'
    ```
 
    This ensures that the database will not be accessable from outside of the docker network. But you'll need to re-add this to connect in development mode.
