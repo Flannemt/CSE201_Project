@@ -7,8 +7,6 @@
 	const { thread, members } = data;
 	const memberMap = new Map<string, DiscordUser>();
 
-	console.log(data.thread.messages);
-
 	for (const member of members) {
 		memberMap.set(member.uuid, member.user);
 	}
@@ -29,7 +27,7 @@
 					</h5>
 					<!-- button for adding friends here -->
 					<form method="POST" action="?/friend">
-						<input name="friendId" type="text" value={message.author} hidden />
+						<input name="friendId" type="text" value={message.author} hidden/>
 						<button>Send</button>
 					</form>
 					<p>{message.content}</p>
