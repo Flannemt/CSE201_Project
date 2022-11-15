@@ -29,7 +29,9 @@ A simple web chat application that integrates Discord Oauth and uses the SvelteK
 
    ![image](https://user-images.githubusercontent.com/94007463/201015643-cf2c4912-37f3-4de1-b47b-7f00f4b9a17d.png)
 
-4. Start up the database container (or other postgres database if you went that route). You'll need to have docker-compose installed on your system.
+4. Make a copy of your new `.env` file and rename it to `.env.production`. You should have both. You can ignore the production enviroment file for running in dev mode, it just needs to exist.
+
+5. Start up the database container (or other postgres database if you went that route). You'll need to have `docker-compose` (comes with [Docker Desktop](https://www.docker.com/products/docker-desktop/)) installed on your system.
 
    ```
    docker-compose up --build database -d
@@ -37,19 +39,19 @@ A simple web chat application that integrates Discord Oauth and uses the SvelteK
 
    This command will only start up the database, and not the production container.
 
-5. Run the website in dev mode with the following:
+6. Run the website in dev mode with the following:
 
    ```
    npm run dev
    ```
 
-   Navigate to the link send in the terminal, and it (should) load!
+   Navigate to the link sent in the terminal, and it (should) load!
 
 ## Building
 
 To create a production version of your app, follow these steps.
 
-1. Follow steps `1-3` of the above development steps, except rename the new `.env` file to instead be `.env.production`
+1. Follow steps `1-4` of the above development steps, you should then have a `.env.production` file to edit.
 
 2. To use the included postgres database, edit the databse URI as shown:
 
@@ -75,7 +77,7 @@ To create a production version of your app, follow these steps.
    	- '5434:5432'
    ```
 
-   This ensures that the database will not be accessable from outside of the docker network.
+   This ensures that the database will not be accessable from outside of the docker network. But you'll need to re-add this to connect in development mode.
 
 5. Start up the production build with the following command:
    ```
